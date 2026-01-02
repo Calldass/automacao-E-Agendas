@@ -1,0 +1,27 @@
+name: Automação E-Agendas
+
+on:
+  schedule:
+    - cron: '0 9 * * *'   # Executa todos os dias às 9h UTC (6h Brasil)
+  workflow_dispatch:
+
+jobs:
+  executar-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar código do repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependências
+        run: |
+          pip install -r requirements.txt
+
+      - name: Executar script
+        run: |
+          python script.py
